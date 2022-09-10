@@ -1,3 +1,5 @@
+import nc from "next-connect";
+
 const getGeoForIps = (req, res) => {
   res.status(200).end("Welcome to the geoip API endpoint");
 };
