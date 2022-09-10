@@ -5,10 +5,22 @@
 import nc from "next-connect";
 import { Reader } from "@maxmind/geoip2-node";
 
+import GeoJSON from "geojson";
+
+import { isIPv4 } from "../../../src/utils/stringUtils";
+
 const geoData = [];
 
 const geoIpHandler = nc().get((req, res) => {
-  const ips = [req.query.ip];
+  // const ips = [req.query.ip];
+
+  const query = req.query;
+  const { ip, format = "json" } = query;
+
+  // check for valid IP address
+  if (!isIPv4(ip)) res.status(400).send("Invalid IP Address");
+
+  const ips = [ip]; // create array for looping
 
   Reader.open("db/GeoLite2-City_08302022.mmdb").then(reader => {
     for (const ip of ips) {
@@ -23,7 +35,15 @@ const geoIpHandler = nc().get((req, res) => {
         accuracy: ipObj.location.accuracyRadius,
       });
     }
-    res.status(200).send(JSON.stringify(geoData, null, 2) + "\n");
+
+    // return different json formats
+    if (format === "geojson") {
+      const geoDataGeoJson = GeoJSON.parse(geoData, { Point: ["lat", "long"] });
+      res.status(200).send(JSON.stringify(geoDataGeoJson, null, 2) + "\n");
+    } else {
+      const geoDataJson = JSON.stringify(geoData, null, 2);
+      res.status(200).send(geoDataJson + "\n");
+    }
   });
 });
 
