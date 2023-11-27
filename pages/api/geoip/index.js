@@ -6,6 +6,9 @@
 import nc from "next-connect";
 import { Reader } from "@maxmind/geoip2-node";
 
+// const dbFile = "db/GeoLite2-City_08302022.mmdb";
+const dbFile = "db/dbip-city-lite-2023-11.mmdb";
+
 const geoData = [];
 
 const geoIpsHandler = nc()
@@ -18,8 +21,9 @@ const geoIpsHandler = nc()
   })
   .post((req, res) => {
     const ips = req.body;
+    console.log("ips is: ", ips);
 
-    Reader.open("db/GeoLite2-City_08302022.mmdb").then(reader => {
+    Reader.open(dbFile).then((reader) => {
       for (const ip of ips) {
         let ipObj = reader.city(ip);
 
