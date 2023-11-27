@@ -9,6 +9,9 @@ import GeoJSON from "geojson";
 
 import { isIPv4 } from "../../../src/utils/stringUtils";
 
+// const dbFile = "db/GeoLite2-City_08302022.mmdb";
+const dbFile = "db/dbip-city-lite-2023-11.mmdb";
+
 const geoData = [];
 
 const geoIpHandler = nc().get((req, res) => {
@@ -22,7 +25,7 @@ const geoIpHandler = nc().get((req, res) => {
 
   const ips = [ip]; // create array for looping
 
-  Reader.open("db/GeoLite2-City_08302022.mmdb").then(reader => {
+  Reader.open(dbFile).then((reader) => {
     for (const ip of ips) {
       let ipObj = reader.city(ip);
 
