@@ -1,14 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
 
-import { US } from "country-flag-icons/react/3x2";
+// import { US } from "country-flag-icons/react/3x2";
 // import US from "country-flag-icons/react/3x2/US";
 
-// import Flags from "country-flag-icons/react/3x2";
+import Flags from "country-flag-icons/react/3x2";
 
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({}) {
+  const Flag = Flags["GB"];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -20,9 +22,12 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Flags for Geo </h1>
 
-        <p>
-          <US title="United States FlagsB" style={{ width: "36px" }} />
-        </p>
+        {/* <p>
+          <Flags.US title="United States C" style={{ width: "36px" }} />
+        </p> */}
+        {/* <Flag title="United States" style={{ width: "36px" }} /> */}
+
+        <Flag title="EU" style={{ width: "48px" }} />
 
         <p className={styles.description}>
           Get started by editing{" "}

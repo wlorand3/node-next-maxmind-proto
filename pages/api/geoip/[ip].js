@@ -28,9 +28,11 @@ const geoIpHandler = nc().get((req, res) => {
   Reader.open(dbFile).then((reader) => {
     for (const ip of ips) {
       let ipObj = reader.city(ip);
+      console.log(ipObj);
 
       geoData.push({
         ipAddress: ipObj.traits.ipAddress,
+        countryCode: ipObj.country.isoCode,
         city: ipObj?.city?.names?.en, // account for some undefined objects
         timeZone: ipObj.location.timeZone,
         lat: ipObj.location.latitude,
