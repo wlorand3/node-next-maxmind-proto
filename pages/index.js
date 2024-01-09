@@ -32,7 +32,7 @@ export default function Home({}) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Flags for Geo 1/9 </h1>
+        <h1 className={styles.title}>Flags for Geo</h1>
 
         {/* solve inability to add title with country name by enclosing in div */}
         <div title={countryTestName}>
