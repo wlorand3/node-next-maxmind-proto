@@ -33,6 +33,7 @@ const geoIpHandler = nc().get((req, res) => {
       geoData.push({
         ipAddress: ipObj.traits.ipAddress,
         countryCode: ipObj.country.isoCode,
+        countryName: ipObj.country.names.en,
         city: ipObj?.city?.names?.en, // account for some undefined objects
         timeZone: ipObj.location.timeZone,
         lat: ipObj.location.latitude,
